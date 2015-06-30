@@ -1,14 +1,25 @@
 /**
- * Вывести контейнер на черном фоне в центре экрана
+ * SamsonJS plugin for scrolling horizontal block
+ *
+ * @param selectorWrapBlock block which react on mouse scroll
+ * @param selectorRotateBlock block which have to scroll
+ * @param shift it's value which affect to velocity scrolling
+ *        if value < 0 then scroll will be from left to right
+ *        if value > 0 then it is reverse direction
  */
-var ScrollHorizontal = function( selectorWrapBlock, selectorRotateBlock, shift)
-{
-    var shift = shift || 10;
-    var margin = 0;
-    selectorWrapBlock.mousewheel(function(){
-        var currentMargin = parseInt(selectorRotateBlock.css('margin-left'));
-        console.log(currentMargin);
-        var newMargin = shift + currentMargin;
-        selectorRotateBlock.css('margin-left',newMargin+'px');
-    });
+var ScrollHorizontal = function(selectorWrapBlock, selectorRotateBlock, shift) {
+    var shift = shift || -1;
+
+    //Set handler on mouse scroll
+    selectorWrapBlock.mousewheel(function(p1,p2,event){
+
+        //Current value of rotation
+        var scrollSize = parseInt(selectorRotateBlock.scrollLeft());
+
+        //Solved value of rotation
+        var newPosition = parseInt(shift * event.wheelDelta);
+
+        //Set new scroll value
+        selectorRotateBlock.scrollLeft(scrollSize+newPosition);
+    },true,true);
 };
