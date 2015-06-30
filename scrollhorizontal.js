@@ -8,7 +8,7 @@ var ScrollHorizontal = function( selectorWrapBlock, selectorRotateBlock, shift)
     selectorWrapBlock.mousewheel(function(){
         var currentMargin = parseInt(selectorRotateBlock.css('margin-left'));
         console.log(currentMargin);
-        var newMargin = shift - 
-        selectorRotateBlock.css('margin-left','-100px');
+        var newMargin = shift + currentMargin;
+        selectorRotateBlock.css('margin-left',newMargin+'px');
     });
 };
