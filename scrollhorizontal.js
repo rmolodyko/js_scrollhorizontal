@@ -22,4 +22,27 @@ var ScrollHorizontal = function(selectorWrapBlock, selectorRotateBlock, shift) {
         //Set new scroll value
         selectorRotateBlock.scrollLeft(scrollSize+newPosition);
     },true,true);
+    
+    
+    var touchStart = 0;
+    // Remember strarting position
+    selectorWrapBlock.DOMElement.addEventListener('touchstart', function(event) {
+        touchStart = event.touches[0].pageX;
+    });
+
+    // Change position of block
+    selectorWrapBlock.DOMElement.addEventListener('touchmove', function(event) {
+
+        // Get current shift on the event
+        var currentPosition = event.touches[0].pageX;
+
+        //Current value of rotation
+        var scrollSize = parseInt(selectorRotateBlock.scrollLeft());
+
+        //Solved value of rotation
+        var newPosition = parseInt(currentPosition - touchStart);
+
+        //Set new scroll value
+        selectorRotateBlock.scrollLeft(scrollSize-newPosition);
+    });
 };
